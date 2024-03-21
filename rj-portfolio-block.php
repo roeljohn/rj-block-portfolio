@@ -30,3 +30,14 @@ function rj_portfolio_block_rj_portfolio_block_block_init() {
     register_block_type( __DIR__ . '/build/block-2' );
 }
 add_action( 'init', 'rj_portfolio_block_rj_portfolio_block_block_init' );
+
+add_filter( 'block_categories_all' , function( $categories ) {
+
+    // Adding a new category.
+	$categories[] = array(
+		'slug'  => 'rj-block-category',
+		'title' => 'RJ Block'
+	);
+
+	return $categories;
+} );
