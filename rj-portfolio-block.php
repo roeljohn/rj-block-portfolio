@@ -28,6 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function rj_portfolio_block_rj_portfolio_block_block_init() {
     register_block_type( __DIR__ . '/build/block-1' );
     register_block_type( __DIR__ . '/build/block-2' );
+	register_block_type( __DIR__ . '/build/rj-lorem-ipsum-block' );
 }
 add_action( 'init', 'rj_portfolio_block_rj_portfolio_block_block_init' );
 

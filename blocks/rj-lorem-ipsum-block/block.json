@@ -1,0 +1,35 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "create-block/rj-lorem-ipsum-block",
+	"version": "0.1.0",
+	"title": "Rj Lorem Ipsum",
+	"category": "rj-block-category",
+	"icon": "smiley",
+	"description": "This block generate lorem ipsum text",
+	"example": {},
+	"attributes": {
+		"loremElement": {
+			"type": "string"
+		},
+		"loremCharCount": {
+			"type": "number"
+		}
+	},
+    "supports": {
+        "color": {
+            "background": false,
+            "text": true
+        },
+        "html": false,
+        "typography": {
+            "fontSize": true
+        }
+    },
+	"textdomain": "rj-portfolio-block",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php",
+	"viewScript": "file:./view.js"
+}
