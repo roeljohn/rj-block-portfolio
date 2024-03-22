@@ -31,19 +31,19 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
-import { useState } from 'react';
+
+import { LoremIpsum } from 'react-lorem-ipsum';
 
 export default function Edit({ attributes, setAttributes }) {
-	//const [ loremElement, setLoremElement ] = useState( 'paragraph' );
 	const { loremElement } = attributes;
-	
+
 	let displayElement;
 
 	if ( loremElement === 'h1' ) {
 		displayElement = <h1 { ...useBlockProps() }>Lorem Ipsum Dolor</h1>;
 	}
 	if ( loremElement === 'paragraph' ) {
-		displayElement = <p { ...useBlockProps() }>Lorem Ipsum Dolor</p>;
+		displayElement = <div { ...useBlockProps() }><LoremIpsum p={1} /></div>;
 	}
 	return (
 		<>
@@ -61,7 +61,6 @@ export default function Edit({ attributes, setAttributes }) {
 					/>
 					</PanelBody>
 			</InspectorControls>
-
 			{displayElement}
 		</>
 
