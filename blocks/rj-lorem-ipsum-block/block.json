@@ -9,6 +9,9 @@
 	"description": "This block generate lorem ipsum text",
 	"example": {},
 	"attributes": {
+		"loremVal": {
+			"type": "array"
+		},
 		"loremElement": {
 			"type": "string"
 		},
@@ -21,14 +24,14 @@
             "background": false,
             "text": true
         },
-        "html": false,
+        "html": true,
         "typography": {
             "fontSize": true
         }
     },
 	"textdomain": "rj-portfolio-block",
 	"editorScript": "file:./index.js",
-	"editorStyle": "file:./index.css",
+	"editorStyle": "file:./rj-lorem-ipsum-block/index.css",
 	"style": "file:./style-index.css",
 	"render": "file:./render.php",
 	"viewScript": "file:./view.js"
