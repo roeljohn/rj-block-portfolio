@@ -13,7 +13,8 @@ import { __ } from '@wordpress/i18n';
  */
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 
-import {PanelBody, SelectControl, ToggleControl } from '@wordpress/components';
+import {PanelBody, SelectControl, Card, CardBody, CardHeader, Button } from '@wordpress/components';
+import { __experimentalNumberControl as NumberControl } from '@wordpress/components';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -31,34 +32,80 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
+import { useState } from 'react';
 
-import { LoremIpsum } from 'react-lorem-ipsum';
+import { LoremIpsum, loremIpsum } from 'react-lorem-ipsum';
 
 export default function Edit({ attributes, setAttributes }) {
-	const { loremElement } = attributes;
+	const { loremElement, loremVal } = attributes;
+	const [ numP, setNumP ] = useState( 1 );
+
+	function handleClick() {
+		setAttributes( {
+			loremVal: loremIpsum({
+				p: numP
+			}),
+		} )
+		// Add your desired functionality here (e.g., update state, fetch data)
+	}
 
 	let displayElement;
 
 	if ( loremElement === 'h1' ) {
 		displayElement = <h1 { ...useBlockProps() }>Lorem Ipsum Dolor</h1>;
 	}
+
 	if ( loremElement === 'paragraph' ) {
-		displayElement = <div { ...useBlockProps() }><LoremIpsum p={1} /></div>;
+		if (loremVal !== undefined){
+			displayElement = <div { ...useBlockProps() }>{loremVal}</div>;
+		} else {
+			displayElement = <p { ...useBlockProps() }>Please Click "Generate Lorem" on the element settings</p>;
+		}
 	}
+
+
 	return (
 		<>
 			<InspectorControls>
-					<PanelBody title={__('Settings', 'rj-portfolio-block')}>
-					<SelectControl
-						label="Size"
-						value={ loremElement || '' }
-						options={ [
-							{ label: 'H1', value: 'h1' },
-							{ label: 'Paragraph', value: 'paragraph' },
-						] }
-						onChange={ ( value ) => setAttributes( { loremElement: value } ) }
-						__nextHasNoMarginBottom
-					/>
+					<PanelBody title={__('Lorem Ipsum Settings', 'rj-portfolio-block')}>
+						<Button variant="primary" style={{ marginBottom: '10px', width: '100%' }} onClick={handleClick}>
+							Generate Lorem
+						</Button>
+						<Card>
+							<CardHeader>
+								Paragraph Settings
+							</CardHeader>
+							<CardBody>
+								<SelectControl
+									label="Size"
+									value={ loremElement || '' }
+									options={ [
+										{ label: 'H1', value: 'h1' },
+										{ label: 'Paragraph', value: 'paragraph' },
+									] }
+									onChange={ ( value ) => {
+										setAttributes( { loremElement: value } )
+										setNumP(1)
+									}}
+									__nextHasNoMarginBottom
+								/>
+								<NumberControl
+									label={
+										__(
+											'Number of paragraphs ',
+											'rj-portfolio-block'
+										)
+									}
+									value={ numP }
+									onChange={ (value ) =>
+										setNumP(value)
+									}
+									min={1}
+									max={20}
+								/>
+							</CardBody>
+						</Card>
+
 					</PanelBody>
 			</InspectorControls>
 			{displayElement}

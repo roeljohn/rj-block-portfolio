@@ -39,6 +39,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
  * Those files can contain any CSS code that gets applied to the editor.
@@ -62,8 +63,18 @@ function Edit({
   setAttributes
 }) {
   const {
-    loremElement
+    loremElement,
+    loremVal
   } = attributes;
+  const [numP, setNumP] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
+  function handleClick() {
+    setAttributes({
+      loremVal: (0,react_lorem_ipsum__WEBPACK_IMPORTED_MODULE_5__.loremIpsum)({
+        p: numP
+      })
+    });
+    // Add your desired functionality here (e.g., update state, fetch data)
+  }
   let displayElement;
   if (loremElement === 'h1') {
     displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", {
@@ -71,15 +82,26 @@ function Edit({
     }, "Lorem Ipsum Dolor");
   }
   if (loremElement === 'paragraph') {
-    displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_lorem_ipsum__WEBPACK_IMPORTED_MODULE_5__.LoremIpsum, {
-      p: 1
-    }));
+    if (loremVal !== undefined) {
+      displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+        ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
+      }, loremVal);
+    } else {
+      displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+        ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
+      }, "Please Click \"Generate Lorem\" on the element settings");
+    }
   }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Settings', 'rj-portfolio-block')
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SelectControl, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Lorem Ipsum Settings', 'rj-portfolio-block')
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
+    variant: "primary",
+    style: {
+      marginBottom: '10px',
+      width: '100%'
+    },
+    onClick: handleClick
+  }, "Generate Lorem"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Card, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.CardHeader, null, "Paragraph Settings"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.CardBody, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SelectControl, {
     label: "Size",
     value: loremElement || '',
     options: [{
@@ -89,11 +111,20 @@ function Edit({
       label: 'Paragraph',
       value: 'paragraph'
     }],
-    onChange: value => setAttributes({
-      loremElement: value
-    }),
+    onChange: value => {
+      setAttributes({
+        loremElement: value
+      });
+      setNumP(1);
+    },
     __nextHasNoMarginBottom: true
-  }))), displayElement);
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalNumberControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Number of paragraphs ', 'rj-portfolio-block'),
+    value: numP,
+    onChange: value => setNumP(value),
+    min: 1,
+    max: 20
+  }))))), displayElement);
 }
 
 /***/ }),
@@ -1771,7 +1802,7 @@ module.exports = window["wp"]["i18n"];
 /***/ ((module) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/rj-lorem-ipsum-block","version":"0.1.0","title":"Rj Lorem Ipsum","category":"rj-block-category","icon":"smiley","description":"This block generate lorem ipsum text","example":{},"attributes":{"loremElement":{"type":"string"},"loremCharCount":{"type":"number"}},"supports":{"color":{"background":false,"text":true},"html":false,"typography":{"fontSize":true}},"textdomain":"rj-portfolio-block","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/rj-lorem-ipsum-block","version":"0.1.0","title":"Rj Lorem Ipsum","category":"rj-block-category","icon":"smiley","description":"This block generate lorem ipsum text","example":{},"attributes":{"loremVal":{"type":"array"},"loremElement":{"type":"string"},"loremCharCount":{"type":"number"}},"supports":{"color":{"background":false,"text":true},"html":true,"typography":{"fontSize":true}},"textdomain":"rj-portfolio-block","editorScript":"file:./index.js","editorStyle":"file:./rj-lorem-ipsum-block/index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js"}');
 
 /***/ }),
 
