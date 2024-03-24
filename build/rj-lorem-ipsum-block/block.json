@@ -12,6 +12,21 @@
     "loremVal": {
       "type": "array"
     },
+    "loremNumberOfParagraphsAttr": {
+      "type": "number"
+    },
+    "loremAvgWordsPerSentenceAttr": {
+      "type": "number"
+    },
+    "loremAvgSentencesPerParagraphAttr": {
+      "type": "number"
+    },
+    "loremStartWithLoremIpsumAttr": {
+      "type": "boolean"
+    },
+    "loremRandomAttr": {
+      "type": "boolean"
+    },
     "loremElement": {
       "type": "string"
     },
