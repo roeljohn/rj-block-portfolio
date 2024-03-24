@@ -13,7 +13,7 @@ import { __ } from '@wordpress/i18n';
  */
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 
-import {PanelBody, SelectControl, Card, CardBody, CardHeader, Button } from '@wordpress/components';
+import {PanelBody, SelectControl, Card, CardBody, ToggleControl, Button } from '@wordpress/components';
 import { __experimentalNumberControl as NumberControl } from '@wordpress/components';
 
 /**
@@ -37,24 +37,22 @@ import { useState } from 'react';
 import { LoremIpsum, loremIpsum } from 'react-lorem-ipsum';
 
 export default function Edit({ attributes, setAttributes }) {
-	const { loremElement, loremVal } = attributes;
+	const { loremElement, loremVal, loremNumberOfParagraphsAttr, loremAvgWordsPerSentenceAttr, loremAvgSentencesPerParagraphAttr, loremStartWithLoremIpsumAttr } = attributes;
 	const [ numP, setNumP ] = useState( 1 );
-
-	function handleClick() {
-		setAttributes( {
-			loremVal: loremIpsum({
-				p: numP
-			}),
-		} )
-		// Add your desired functionality here (e.g., update state, fetch data)
-	}
+	const [ loremAvgWordsPerSentence, setloremAvgWordsPerSentence ] = useState( 1 );
+	const [ loremAvgSentencesPerParagraph, setloremAvgSentencesPerParagraph ] = useState( 1 );
+	const [ loremStartWithLoremIpsum, setloremStartWithLoremIpsum ] = useState( false );
+	const [ loremRandom, setloremRandom ] = useState( false );
 
 	let displayElement;
-
+	
 	if ( loremElement === 'h1' ) {
-		displayElement = <h1 { ...useBlockProps() }>Lorem Ipsum Dolor</h1>;
+		if (loremVal !== undefined){
+			displayElement = <h1 { ...useBlockProps() }>{loremVal}</h1>;
+		} else {
+			displayElement = <h1 { ...useBlockProps() }>Please Click "Generate Lorem" on the element settings</h1>;
+		}
 	}
-
 	if ( loremElement === 'paragraph' ) {
 		if (loremVal !== undefined){
 			displayElement = <div { ...useBlockProps() }>{loremVal}</div>;
@@ -63,49 +61,101 @@ export default function Edit({ attributes, setAttributes }) {
 		}
 	}
 
-
+	function handleClick(numP, loremAvgWordsPerSentence, loremAvgSentencesPerParagraph, loremStartWithLoremIpsum) {
+		console.log('handleClick', attributes)
+		setAttributes( {
+			loremVal: loremIpsum({
+				p: numP,
+				avgWordsPerSentence: loremAvgWordsPerSentence,
+				avgSentencesPerParagraph: loremAvgSentencesPerParagraph,
+				startWithLoremIpsum: loremStartWithLoremIpsum,
+			}),
+			loremNumberOfParagraphsAttr: numP,
+			loremAvgWordsPerSentenceAttr: loremAvgWordsPerSentence,
+			loremAvgSentencesPerParagraphAttr: loremAvgSentencesPerParagraph,
+			loremStartWithLoremIpsumAttr: loremStartWithLoremIpsum,
+		} )
+	}
+	console.log('load', attributes)
 	return (
 		<>
 			<InspectorControls>
 					<PanelBody title={__('Lorem Ipsum Settings', 'rj-portfolio-block')}>
-						<Button variant="primary" style={{ marginBottom: '10px', width: '100%' }} onClick={handleClick}>
+						<Button variant="primary" style={{ marginBottom: '10px', width: '100%' }} onClick={()=> handleClick(numP, loremAvgWordsPerSentence, loremAvgSentencesPerParagraph, loremStartWithLoremIpsum)}>
 							Generate Lorem
 						</Button>
-						<Card>
-							<CardHeader>
-								Paragraph Settings
-							</CardHeader>
-							<CardBody>
-								<SelectControl
-									label="Size"
-									value={ loremElement || '' }
-									options={ [
-										{ label: 'H1', value: 'h1' },
-										{ label: 'Paragraph', value: 'paragraph' },
-									] }
-									onChange={ ( value ) => {
-										setAttributes( { loremElement: value } )
-										setNumP(1)
-									}}
-									__nextHasNoMarginBottom
-								/>
-								<NumberControl
-									label={
-										__(
-											'Number of paragraphs ',
-											'rj-portfolio-block'
-										)
-									}
-									value={ numP }
-									onChange={ (value ) =>
-										setNumP(value)
-									}
-									min={1}
-									max={20}
-								/>
-							</CardBody>
-						</Card>
-
+							<Card>
+								<CardBody>
+									<ToggleControl 
+										checked={ loremStartWithLoremIpsumAttr ? loremStartWithLoremIpsumAttr : false }
+										label={
+											__(
+												'Start with Lorem Ipsum',
+												'copyright-date-block'
+											)
+										}
+										onChange={ () =>
+											setloremStartWithLoremIpsum(! loremStartWithLoremIpsum)
+										}
+									/>
+									<SelectControl
+										label="Element"
+										value={ loremElement ? loremElement : null }
+										options={ [
+											{ label: 'H1', value: 'h1' },
+											{ label: 'Paragraph', value: 'paragraph' },
+										] }
+										onChange={ ( value ) => {
+											setAttributes( { loremElement: value } )
+											setNumP(1)
+										}}
+										__nextHasNoMarginBottom
+									/>
+									{loremNumberOfParagraphsAttr}
+									<NumberControl
+										label={
+											__(
+												'Number of paragraphs ',
+												'rj-portfolio-block'
+											)
+										}
+										value={ loremNumberOfParagraphsAttr ? loremNumberOfParagraphsAttr : 1 }
+										onChange={ (value ) =>
+											setNumP(value)
+										}
+										min={1}
+										max={2}
+									/>
+									<NumberControl
+										label={
+											__(
+												'Avarage number of words',
+												'rj-portfolio-block'
+											)
+										}
+										value={ loremAvgWordsPerSentenceAttr ? loremAvgWordsPerSentenceAttr : 1 }
+										onChange={ (value ) =>
+											setloremAvgWordsPerSentence(value)
+										}
+										min={5}
+										max={12}
+									/>
+									<NumberControl
+										label={
+											__(
+												'Avarage number of sentences',
+												'rj-portfolio-block'
+											)
+										}
+										value={ loremAvgSentencesPerParagraphAttr ? loremAvgSentencesPerParagraphAttr : 1 }
+										onChange={ (value ) =>
+											setloremAvgSentencesPerParagraph(value)
+										}
+										min={1}
+										max={2}
+									/>
+								</CardBody>
+							</Card>
 					</PanelBody>
 			</InspectorControls>
 			{displayElement}
