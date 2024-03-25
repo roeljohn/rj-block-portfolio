@@ -12,8 +12,12 @@
 		"loremVal": {
 			"type": "array"
 		},
+		"loremElement": {
+			"type": "string"
+		},
 		"loremNumberOfParagraphsAttr": {
-			"type": "number"
+			"type": "number",
+			"default": 1
 		},
 		"loremAvgWordsPerSentenceAttr": {
 			"type": "number"
@@ -26,12 +30,6 @@
 		},
 		"loremRandomAttr": {
 			"type": "boolean"
-		},
-		"loremElement": {
-			"type": "string"
-		},
-		"loremCharCount": {
-			"type": "number"
 		}
 	},
     "supports": {

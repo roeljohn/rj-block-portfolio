@@ -43,7 +43,6 @@ export default function Edit({ attributes, setAttributes }) {
 	const [ loremAvgSentencesPerParagraph, setloremAvgSentencesPerParagraph ] = useState( 1 );
 	const [ loremStartWithLoremIpsum, setloremStartWithLoremIpsum ] = useState( false );
 	const [ loremRandom, setloremRandom ] = useState( false );
-
 	let displayElement;
 	
 	if ( loremElement === 'h1' ) {
@@ -62,7 +61,6 @@ export default function Edit({ attributes, setAttributes }) {
 	}
 
 	function handleClick(numP, loremAvgWordsPerSentence, loremAvgSentencesPerParagraph, loremStartWithLoremIpsum) {
-		console.log('handleClick', attributes)
 		setAttributes( {
 			loremVal: loremIpsum({
 				p: numP,
@@ -76,7 +74,6 @@ export default function Edit({ attributes, setAttributes }) {
 			loremStartWithLoremIpsumAttr: loremStartWithLoremIpsum,
 		} )
 	}
-	console.log('load', attributes)
 	return (
 		<>
 			<InspectorControls>
@@ -107,11 +104,9 @@ export default function Edit({ attributes, setAttributes }) {
 										] }
 										onChange={ ( value ) => {
 											setAttributes( { loremElement: value } )
-											setNumP(1)
 										}}
 										__nextHasNoMarginBottom
 									/>
-									{loremNumberOfParagraphsAttr}
 									<NumberControl
 										label={
 											__(
@@ -120,8 +115,8 @@ export default function Edit({ attributes, setAttributes }) {
 											)
 										}
 										value={ loremNumberOfParagraphsAttr ? loremNumberOfParagraphsAttr : 1 }
-										onChange={ (value ) =>
-											setNumP(value)
+										onChange={ (value) =>
+											setNumP(parseInt(value))
 										}
 										min={1}
 										max={2}
@@ -135,7 +130,7 @@ export default function Edit({ attributes, setAttributes }) {
 										}
 										value={ loremAvgWordsPerSentenceAttr ? loremAvgWordsPerSentenceAttr : 1 }
 										onChange={ (value ) =>
-											setloremAvgWordsPerSentence(value)
+											setloremAvgWordsPerSentence(parseInt(value))
 										}
 										min={5}
 										max={12}
@@ -149,7 +144,7 @@ export default function Edit({ attributes, setAttributes }) {
 										}
 										value={ loremAvgSentencesPerParagraphAttr ? loremAvgSentencesPerParagraphAttr : 1 }
 										onChange={ (value ) =>
-											setloremAvgSentencesPerParagraph(value)
+											setloremAvgSentencesPerParagraph(parseInt(value))
 										}
 										min={1}
 										max={2}

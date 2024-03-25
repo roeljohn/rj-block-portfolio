@@ -99,7 +99,6 @@ function Edit({
     }
   }
   function handleClick(numP, loremAvgWordsPerSentence, loremAvgSentencesPerParagraph, loremStartWithLoremIpsum) {
-    console.log('handleClick', attributes);
     setAttributes({
       loremVal: (0,react_lorem_ipsum__WEBPACK_IMPORTED_MODULE_5__.loremIpsum)({
         p: numP,
@@ -113,7 +112,6 @@ function Edit({
       loremStartWithLoremIpsumAttr: loremStartWithLoremIpsum
     });
   }
-  console.log('load', attributes);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Lorem Ipsum Settings', 'rj-portfolio-block')
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
@@ -141,25 +139,24 @@ function Edit({
       setAttributes({
         loremElement: value
       });
-      setNumP(1);
     },
     __nextHasNoMarginBottom: true
-  }), loremNumberOfParagraphsAttr, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalNumberControl, {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalNumberControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Number of paragraphs ', 'rj-portfolio-block'),
     value: loremNumberOfParagraphsAttr ? loremNumberOfParagraphsAttr : 1,
-    onChange: value => setNumP(value),
+    onChange: value => setNumP(parseInt(value)),
     min: 1,
     max: 2
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalNumberControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Avarage number of words', 'rj-portfolio-block'),
     value: loremAvgWordsPerSentenceAttr ? loremAvgWordsPerSentenceAttr : 1,
-    onChange: value => setloremAvgWordsPerSentence(value),
+    onChange: value => setloremAvgWordsPerSentence(parseInt(value)),
     min: 5,
     max: 12
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalNumberControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Avarage number of sentences', 'rj-portfolio-block'),
     value: loremAvgSentencesPerParagraphAttr ? loremAvgSentencesPerParagraphAttr : 1,
-    onChange: value => setloremAvgSentencesPerParagraph(value),
+    onChange: value => setloremAvgSentencesPerParagraph(parseInt(value)),
     min: 1,
     max: 2
   }))))), displayElement);
@@ -1840,7 +1837,7 @@ module.exports = window["wp"]["i18n"];
 /***/ ((module) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/rj-lorem-ipsum-block","version":"0.1.0","title":"Rj Lorem Ipsum","category":"rj-block-category","icon":"smiley","description":"This block generate lorem ipsum text","example":{},"attributes":{"loremVal":{"type":"array"},"loremNumberOfParagraphsAttr":{"type":"number"},"loremAvgWordsPerSentenceAttr":{"type":"number"},"loremAvgSentencesPerParagraphAttr":{"type":"number"},"loremStartWithLoremIpsumAttr":{"type":"boolean"},"loremRandomAttr":{"type":"boolean"},"loremElement":{"type":"string"},"loremCharCount":{"type":"number"}},"supports":{"color":{"background":false,"text":true},"html":true,"typography":{"fontSize":true}},"textdomain":"rj-portfolio-block","editorScript":"file:./index.js","editorStyle":"file:./rj-lorem-ipsum-block/index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/rj-lorem-ipsum-block","version":"0.1.0","title":"Rj Lorem Ipsum","category":"rj-block-category","icon":"smiley","description":"This block generate lorem ipsum text","example":{},"attributes":{"loremVal":{"type":"array"},"loremElement":{"type":"string"},"loremNumberOfParagraphsAttr":{"type":"number","default":1},"loremAvgWordsPerSentenceAttr":{"type":"number"},"loremAvgSentencesPerParagraphAttr":{"type":"number"},"loremStartWithLoremIpsumAttr":{"type":"boolean"},"loremRandomAttr":{"type":"boolean"}},"supports":{"color":{"background":false,"text":true},"html":true,"typography":{"fontSize":true}},"textdomain":"rj-portfolio-block","editorScript":"file:./index.js","editorStyle":"file:./rj-lorem-ipsum-block/index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js"}');
 
 /***/ }),
 
