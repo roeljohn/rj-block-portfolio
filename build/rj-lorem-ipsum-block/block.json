@@ -3,7 +3,7 @@
   "apiVersion": 3,
   "name": "create-block/rj-lorem-ipsum-block",
   "version": "0.1.0",
-  "title": "Rj Lorem Ipsum",
+  "title": "Rj Lorem Ipsum Generator",
   "category": "rj-block-category",
   "icon": "smiley",
   "description": "This block generate lorem ipsum text",
@@ -13,17 +13,20 @@
       "type": "array"
     },
     "loremElement": {
-      "type": "string"
+      "type": "string",
+      "default": "paragraph"
     },
     "loremNumberOfParagraphsAttr": {
       "type": "number",
       "default": 1
     },
     "loremAvgWordsPerSentenceAttr": {
-      "type": "number"
+      "type": "number",
+      "default": 1
     },
     "loremAvgSentencesPerParagraphAttr": {
-      "type": "number"
+      "type": "number",
+      "default": 1
     },
     "loremStartWithLoremIpsumAttr": {
       "type": "boolean"
