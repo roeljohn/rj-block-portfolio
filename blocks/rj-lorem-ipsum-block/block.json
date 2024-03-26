@@ -5,7 +5,7 @@
 	"version": "0.1.0",
 	"title": "Rj Lorem Ipsum Generator",
 	"category": "rj-block-category",
-	"icon": "smiley",
+	"icon": "text",
 	"description": "This block generate lorem ipsum text",
 	"example": {},
 	"attributes": {
