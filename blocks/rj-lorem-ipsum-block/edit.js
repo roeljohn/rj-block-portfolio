@@ -41,8 +41,8 @@ export default function Edit({ attributes, setAttributes }) {
 	const [ numP, setNumP ] = useState( 1 );
 	const [ loremAvgWordsPerSentence, setloremAvgWordsPerSentence ] = useState( 1 );
 	const [ loremAvgSentencesPerParagraph, setloremAvgSentencesPerParagraph ] = useState( 1 );
-	const [ loremStartWithLoremIpsum, setloremStartWithLoremIpsum ] = useState( false );
-	const [ loremRandom, setloremRandom ] = useState( false );
+	//const [ loremStartWithLoremIpsum, setloremStartWithLoremIpsum ] = useState( false );
+	//const [ loremRandom, setloremRandom ] = useState( false );
 	let displayElement;
 	
 	if ( loremElement === 'h1' ) {
@@ -60,41 +60,24 @@ export default function Edit({ attributes, setAttributes }) {
 		}
 	}
 
-	function handleClick(numP, loremAvgWordsPerSentence, loremAvgSentencesPerParagraph, loremStartWithLoremIpsum) {
+	function handleClick() {
 		setAttributes( {
 			loremVal: loremIpsum({
-				p: numP,
-				avgWordsPerSentence: loremAvgWordsPerSentence,
-				avgSentencesPerParagraph: loremAvgSentencesPerParagraph,
-				startWithLoremIpsum: loremStartWithLoremIpsum,
-			}),
-			loremNumberOfParagraphsAttr: numP,
-			loremAvgWordsPerSentenceAttr: loremAvgWordsPerSentence,
-			loremAvgSentencesPerParagraphAttr: loremAvgSentencesPerParagraph,
-			loremStartWithLoremIpsumAttr: loremStartWithLoremIpsum,
+				p: loremNumberOfParagraphsAttr,
+				avgWordsPerSentence: loremAvgWordsPerSentenceAttr,
+				avgSentencesPerParagraph: loremAvgSentencesPerParagraphAttr
+			})
 		} )
 	}
 	return (
 		<>
 			<InspectorControls>
 					<PanelBody title={__('Lorem Ipsum Settings', 'rj-portfolio-block')}>
-						<Button variant="primary" style={{ marginBottom: '10px', width: '100%' }} onClick={()=> handleClick(numP, loremAvgWordsPerSentence, loremAvgSentencesPerParagraph, loremStartWithLoremIpsum)}>
+						<Button variant="primary" style={{ marginBottom: '10px', width: '100%' }} onClick={()=> handleClick()}>
 							Generate Lorem
 						</Button>
 							<Card>
 								<CardBody>
-									<ToggleControl 
-										checked={ loremStartWithLoremIpsumAttr ? loremStartWithLoremIpsumAttr : false }
-										label={
-											__(
-												'Start with Lorem Ipsum',
-												'copyright-date-block'
-											)
-										}
-										onChange={ () =>
-											setloremStartWithLoremIpsum(! loremStartWithLoremIpsum)
-										}
-									/>
 									<SelectControl
 										label="Element"
 										value={ loremElement ? loremElement : null }
@@ -114,9 +97,9 @@ export default function Edit({ attributes, setAttributes }) {
 												'rj-portfolio-block'
 											)
 										}
-										value={ loremNumberOfParagraphsAttr ? loremNumberOfParagraphsAttr : 1 }
+										value={ loremNumberOfParagraphsAttr }
 										onChange={ (value) =>
-											setNumP(parseInt(value))
+											setAttributes( { loremNumberOfParagraphsAttr: parseInt(value) } )
 										}
 										min={1}
 										max={2}
@@ -128,9 +111,9 @@ export default function Edit({ attributes, setAttributes }) {
 												'rj-portfolio-block'
 											)
 										}
-										value={ loremAvgWordsPerSentenceAttr ? loremAvgWordsPerSentenceAttr : 1 }
+										value={ loremAvgWordsPerSentenceAttr }
 										onChange={ (value ) =>
-											setloremAvgWordsPerSentence(parseInt(value))
+											setAttributes( { loremAvgWordsPerSentenceAttr: parseInt(value) } )
 										}
 										min={5}
 										max={12}
@@ -142,9 +125,9 @@ export default function Edit({ attributes, setAttributes }) {
 												'rj-portfolio-block'
 											)
 										}
-										value={ loremAvgSentencesPerParagraphAttr ? loremAvgSentencesPerParagraphAttr : 1 }
+										value={ loremAvgSentencesPerParagraphAttr }
 										onChange={ (value ) =>
-											setloremAvgSentencesPerParagraph(parseInt(value))
+											setAttributes( { loremAvgSentencesPerParagraphAttr: parseInt(value) } )
 										}
 										min={1}
 										max={2}
