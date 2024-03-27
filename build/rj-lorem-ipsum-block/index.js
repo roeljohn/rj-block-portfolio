@@ -174,6 +174,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./blocks/rj-lorem-ipsum-block/style.scss");
 /* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./blocks/rj-lorem-ipsum-block/edit.js");
 /* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./block.json */ "./blocks/rj-lorem-ipsum-block/block.json");
+/* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./save */ "./blocks/rj-lorem-ipsum-block/save.js");
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
@@ -196,6 +197,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /**
  * Every block starts by registering a new block type definition.
  *
@@ -205,8 +207,76 @@ __webpack_require__.r(__webpack_exports__);
   /**
    * @see ./edit.js
    */
-  edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"]
+  edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"],
+  save: _save__WEBPACK_IMPORTED_MODULE_4__["default"]
 });
+
+/***/ }),
+
+/***/ "./blocks/rj-lorem-ipsum-block/save.js":
+/*!*********************************************!*\
+  !*** ./blocks/rj-lorem-ipsum-block/save.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ save)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
+
+/**
+ * Retrieves the translation of text.
+ *
+ * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
+ */
+
+
+/**
+ * React hook that is used to mark the block wrapper element.
+ * It provides all the necessary props like the class name.
+ *
+ * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
+ */
+
+function save({
+  attributes
+}) {
+  const {
+    loremElement,
+    loremVal
+  } = attributes;
+  let displayElement;
+  if (loremElement === 'h1') {
+    if (loremVal !== undefined) {
+      displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", {
+        ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps.save()
+      }, loremVal);
+    } else {
+      displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", {
+        ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps.save()
+      }, "Please Click \"Generate Lorem\" on the element settings");
+    }
+  }
+  if (loremElement === 'paragraph') {
+    if (loremVal !== undefined) {
+      displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+        ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps.save()
+      }, loremVal);
+    } else {
+      displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+        ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps.save()
+      }, "Please Click \"Generate Lorem\" on the element settings");
+    }
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, displayElement);
+}
 
 /***/ }),
 
