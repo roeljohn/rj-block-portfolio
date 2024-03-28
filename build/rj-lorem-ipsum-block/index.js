@@ -67,37 +67,76 @@ function Edit({
     loremVal,
     loremNumberOfParagraphsAttr,
     loremAvgWordsPerSentenceAttr,
-    loremAvgSentencesPerParagraphAttr,
-    loremStartWithLoremIpsumAttr
+    loremAvgSentencesPerParagraphAttr
   } = attributes;
-  const [numP, setNumP] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
-  const [loremAvgWordsPerSentence, setloremAvgWordsPerSentence] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
-  const [loremAvgSentencesPerParagraph, setloremAvgSentencesPerParagraph] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
-  //const [ loremStartWithLoremIpsum, setloremStartWithLoremIpsum ] = useState( false );
-  //const [ loremRandom, setloremRandom ] = useState( false );
   let displayElement;
   if (loremElement === 'h1') {
     if (loremVal !== undefined) {
-      displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", {
-        ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
-      }, loremVal);
+      displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+        ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(),
+        tagName: "h1" // The tag here is the element output and editable in the admin
+        ,
+        value: loremVal // Any existing content, either from the database or an attribute default
+        ,
+        allowedFormats: ['core/bold', 'core/italic'] // Allow the content to be made bold or italic, but do not allow other formatting options
+        ,
+        onChange: content => setAttributes({
+          loremVal: content
+        }) // Store updated content as a block attribute
+        ,
+        placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Lorem Ipsum H1') // Display this text before any content has been added by the user
+      });
     } else {
-      displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", {
-        ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
-      }, "Please Click \"Generate Lorem\" on the element settings");
+      displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+        ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(),
+        tagName: "h1" // The tag here is the element output and editable in the admin
+        ,
+        value: loremVal // Any existing content, either from the database or an attribute default
+        ,
+        allowedFormats: ['core/bold', 'core/italic'] // Allow the content to be made bold or italic, but do not allow other formatting options
+        ,
+        onChange: content => setAttributes({
+          loremVal: content
+        }) // Store updated content as a block attribute
+        ,
+        placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Lorem Ipsum H1') // Display this text before any content has been added by the user
+      });
     }
   }
   if (loremElement === 'paragraph') {
     if (loremVal !== undefined) {
-      displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-        ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
-      }, loremVal);
+      displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+        ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(),
+        tagName: "p" // The tag here is the element output and editable in the admin
+        ,
+        value: loremVal // Any existing content, either from the database or an attribute default
+        ,
+        allowedFormats: ['core/bold', 'core/italic'] // Allow the content to be made bold or italic, but do not allow other formatting options
+        ,
+        onChange: content => setAttributes({
+          loremVal: content
+        }) // Store updated content as a block attribute
+        ,
+        placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Lorem Ipsum Paragraph') // Display this text before any content has been added by the user
+      });
     } else {
-      displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
-        ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
-      }, "Please Click \"Generate Lorem\" on the element settings");
+      displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+        ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(),
+        tagName: "p" // The tag here is the element output and editable in the admin
+        ,
+        value: loremVal // Any existing content, either from the database or an attribute default
+        ,
+        allowedFormats: ['core/bold', 'core/italic'] // Allow the content to be made bold or italic, but do not allow other formatting options
+        ,
+        onChange: content => setAttributes({
+          loremVal: content
+        }) // Store updated content as a block attribute
+        ,
+        placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Lorem Ipsum Paragraph') // Display this text before any content has been added by the user
+      });
     }
   }
+  console.log(loremVal);
   function handleClick() {
     setAttributes({
       loremVal: (0,react_lorem_ipsum__WEBPACK_IMPORTED_MODULE_5__.loremIpsum)({
@@ -1904,7 +1943,7 @@ module.exports = window["wp"]["i18n"];
 /***/ ((module) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/rj-lorem-ipsum-block","version":"0.1.0","title":"Rj Lorem Ipsum Generator","category":"rj-block-category","icon":"text","description":"This block generate lorem ipsum text","example":{},"attributes":{"loremVal":{"type":"array"},"loremElement":{"type":"string","default":"paragraph"},"loremNumberOfParagraphsAttr":{"type":"number","default":1},"loremAvgWordsPerSentenceAttr":{"type":"number","default":1},"loremAvgSentencesPerParagraphAttr":{"type":"number","default":1},"loremStartWithLoremIpsumAttr":{"type":"boolean"},"loremRandomAttr":{"type":"boolean"}},"supports":{"color":{"background":false,"text":true},"html":true,"typography":{"fontSize":true}},"textdomain":"rj-portfolio-block","editorScript":"file:./index.js","editorStyle":"file:./rj-lorem-ipsum-block/index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/rj-lorem-ipsum-block","version":"0.1.0","title":"Rj Lorem Ipsum Generator","category":"rj-block-category","icon":"text","description":"This block generate lorem ipsum text","example":{},"attributes":{"loremVal":{"type":"array","default":["Please Click Generate Lorem on the element settings"]},"loremElement":{"type":"string","default":"paragraph"},"loremNumberOfParagraphsAttr":{"type":"number","default":1},"loremAvgWordsPerSentenceAttr":{"type":"number","default":1},"loremAvgSentencesPerParagraphAttr":{"type":"number","default":1},"loremStartWithLoremIpsumAttr":{"type":"boolean"},"loremRandomAttr":{"type":"boolean"}},"supports":{"color":{"background":false,"text":true},"html":true,"typography":{"fontSize":true}},"textdomain":"rj-portfolio-block","editorScript":"file:./index.js","editorStyle":"file:./rj-lorem-ipsum-block/index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js"}');
 
 /***/ }),
 

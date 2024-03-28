@@ -10,7 +10,10 @@
   "example": {},
   "attributes": {
     "loremVal": {
-      "type": "array"
+      "type": "array",
+      "default": [
+        "Please Click Generate Lorem on the element settings"
+      ]
     },
     "loremElement": {
       "type": "string",
