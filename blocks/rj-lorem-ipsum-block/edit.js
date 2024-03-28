@@ -11,7 +11,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import { InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
 
 import {PanelBody, SelectControl, Card, CardBody, ToggleControl, Button } from '@wordpress/components';
 import { __experimentalNumberControl as NumberControl } from '@wordpress/components';
@@ -37,29 +37,52 @@ import { useState } from 'react';
 import { LoremIpsum, loremIpsum } from 'react-lorem-ipsum';
 
 export default function Edit({ attributes, setAttributes }) {
-	const { loremElement, loremVal, loremNumberOfParagraphsAttr, loremAvgWordsPerSentenceAttr, loremAvgSentencesPerParagraphAttr, loremStartWithLoremIpsumAttr } = attributes;
-	const [ numP, setNumP ] = useState( 1 );
-	const [ loremAvgWordsPerSentence, setloremAvgWordsPerSentence ] = useState( 1 );
-	const [ loremAvgSentencesPerParagraph, setloremAvgSentencesPerParagraph ] = useState( 1 );
-	//const [ loremStartWithLoremIpsum, setloremStartWithLoremIpsum ] = useState( false );
-	//const [ loremRandom, setloremRandom ] = useState( false );
+	const { loremElement, loremVal, loremNumberOfParagraphsAttr, loremAvgWordsPerSentenceAttr, loremAvgSentencesPerParagraphAttr } = attributes;
 	let displayElement;
 	
 	if ( loremElement === 'h1' ) {
 		if (loremVal !== undefined){
-			displayElement = <h1 { ...useBlockProps() }>{loremVal}</h1>;
+			displayElement = <RichText
+			{ ...useBlockProps() }
+			tagName="h1" // The tag here is the element output and editable in the admin
+			value={loremVal}// Any existing content, either from the database or an attribute default
+			allowedFormats={ [ 'core/bold', 'core/italic' ] } // Allow the content to be made bold or italic, but do not allow other formatting options
+			onChange={ ( content ) => setAttributes( { loremVal: content } ) } // Store updated content as a block attribute
+			placeholder={ __( 'Lorem Ipsum H1' ) } // Display this text before any content has been added by the user
+		/>;
 		} else {
-			displayElement = <h1 { ...useBlockProps() }>Please Click "Generate Lorem" on the element settings</h1>;
+			displayElement = <RichText
+			{ ...useBlockProps() }
+			tagName="h1" // The tag here is the element output and editable in the admin
+			value={ loremVal }// Any existing content, either from the database or an attribute default
+			allowedFormats={ [ 'core/bold', 'core/italic' ] } // Allow the content to be made bold or italic, but do not allow other formatting options
+			onChange={ ( content ) => setAttributes( { loremVal: content } ) } // Store updated content as a block attribute
+			placeholder={ __( 'Lorem Ipsum H1' ) } // Display this text before any content has been added by the user
+		/>;
 		}
 	}
 	if ( loremElement === 'paragraph' ) {
 		if (loremVal !== undefined){
-			displayElement = <div { ...useBlockProps() }>{loremVal}</div>;
+			displayElement = <RichText
+			{ ...useBlockProps() }
+			tagName="p" // The tag here is the element output and editable in the admin
+			value={ loremVal }// Any existing content, either from the database or an attribute default
+			allowedFormats={ [ 'core/bold', 'core/italic' ] } // Allow the content to be made bold or italic, but do not allow other formatting options
+			onChange={ ( content ) => setAttributes( { loremVal: content } ) } // Store updated content as a block attribute
+			placeholder={ __( 'Lorem Ipsum Paragraph' ) } // Display this text before any content has been added by the user
+		/>;
 		} else {
-			displayElement = <p { ...useBlockProps() }>Please Click "Generate Lorem" on the element settings</p>;
+			displayElement = <RichText
+			{ ...useBlockProps() }
+			tagName="p" // The tag here is the element output and editable in the admin
+			value={ loremVal }// Any existing content, either from the database or an attribute default
+			allowedFormats={ [ 'core/bold', 'core/italic'] } // Allow the content to be made bold or italic, but do not allow other formatting options
+			onChange={ ( content ) => setAttributes( { loremVal: content } ) } // Store updated content as a block attribute
+			placeholder={ __( 'Lorem Ipsum Paragraph' ) } // Display this text before any content has been added by the user
+		/>;
 		}
 	}
-
+	console.log(loremVal)
 	function handleClick() {
 		setAttributes( {
 			loremVal: loremIpsum({
@@ -107,7 +130,7 @@ export default function Edit({ attributes, setAttributes }) {
 									<NumberControl
 										label={
 											__(
-												'Avarage number of words',
+												'Average number of words',
 												'rj-portfolio-block'
 											)
 										}
@@ -121,7 +144,7 @@ export default function Edit({ attributes, setAttributes }) {
 									<NumberControl
 										label={
 											__(
-												'Avarage number of sentences',
+												'Average number of sentences',
 												'rj-portfolio-block'
 											)
 										}
