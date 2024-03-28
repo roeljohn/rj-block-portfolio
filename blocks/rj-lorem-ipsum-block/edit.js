@@ -130,7 +130,7 @@ export default function Edit({ attributes, setAttributes }) {
 									<NumberControl
 										label={
 											__(
-												'Avarage number of words',
+												'Average number of words',
 												'rj-portfolio-block'
 											)
 										}
@@ -144,7 +144,7 @@ export default function Edit({ attributes, setAttributes }) {
 									<NumberControl
 										label={
 											__(
-												'Avarage number of sentences',
+												'Average number of sentences',
 												'rj-portfolio-block'
 											)
 										}
