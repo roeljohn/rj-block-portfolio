@@ -35,6 +35,7 @@ import './editor.scss';
 import { useState } from 'react';
 
 import { LoremIpsum, loremIpsum } from 'react-lorem-ipsum';
+import RJLoremUL from './components/RJLoremUL';
 
 export default function Edit({ attributes, setAttributes }) {
 	const { loremElement, loremVal, loremNumberOfParagraphsAttr, loremAvgWordsPerSentenceAttr, loremAvgSentencesPerParagraphAttr } = attributes;
@@ -82,7 +83,13 @@ export default function Edit({ attributes, setAttributes }) {
 		/>;
 		}
 	}
-	console.log(loremVal)
+	if ( loremElement === 'ul' ) {
+		if (loremVal !== undefined){
+			displayElement =   <RJLoremUL list={loremVal} />;
+		} else {
+			displayElement =   <RJLoremUL list={loremVal}  />;
+		}
+	}
 	function handleClick() {
 		setAttributes( {
 			loremVal: loremIpsum({
@@ -107,6 +114,7 @@ export default function Edit({ attributes, setAttributes }) {
 										options={ [
 											{ label: 'H1', value: 'h1' },
 											{ label: 'Paragraph', value: 'paragraph' },
+											{ label: 'ul', value: 'ul' },
 										] }
 										onChange={ ( value ) => {
 											setAttributes( { loremElement: value } )
