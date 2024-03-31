@@ -1,6 +1,45 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./blocks/rj-lorem-ipsum-block/components/RJLoremUL.js":
+/*!*************************************************************!*\
+  !*** ./blocks/rj-lorem-ipsum-block/components/RJLoremUL.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ RJLoremUL)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_lorem_ipsum__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-lorem-ipsum */ "./node_modules/react-lorem-ipsum/dist/index.js");
+
+
+
+function RJLoremUL(loremVal) {
+  console.log('ul', loremVal);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
+    className: "text-wrapper"
+  }, loremVal && loremVal.list.map(text => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
+    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)(),
+    tagName: "li" // The tag here is the element output and editable in the admin
+    ,
+    value: text // Any existing content, either from the database or an attribute default
+    ,
+    allowedFormats: ['core/bold', 'core/italic'] // Allow the content to be made bold or italic, but do not allow other formatting options
+    ,
+    onChange: content => console.log(content) // Store updated content as a block attribute
+    ,
+    placeholder: 'Lorem Ipsum Paragraph' // Display this text before any content has been added by the user
+  })));
+}
+
+/***/ }),
+
 /***/ "./blocks/rj-lorem-ipsum-block/edit.js":
 /*!*********************************************!*\
   !*** ./blocks/rj-lorem-ipsum-block/edit.js ***!
@@ -22,6 +61,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./editor.scss */ "./blocks/rj-lorem-ipsum-block/editor.scss");
 /* harmony import */ var react_lorem_ipsum__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-lorem-ipsum */ "./node_modules/react-lorem-ipsum/dist/index.js");
+/* harmony import */ var _components_RJLoremUL__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/RJLoremUL */ "./blocks/rj-lorem-ipsum-block/components/RJLoremUL.js");
 
 /**
  * Retrieves the translation of text.
@@ -56,6 +96,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @return {Element} Element to render.
  */
+
 
 
 function Edit({
@@ -136,7 +177,17 @@ function Edit({
       });
     }
   }
-  console.log(loremVal);
+  if (loremElement === 'ul') {
+    if (loremVal !== undefined) {
+      displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_RJLoremUL__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        list: loremVal
+      });
+    } else {
+      displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_RJLoremUL__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        list: loremVal
+      });
+    }
+  }
   function handleClick() {
     setAttributes({
       loremVal: (0,react_lorem_ipsum__WEBPACK_IMPORTED_MODULE_5__.loremIpsum)({
@@ -164,6 +215,9 @@ function Edit({
     }, {
       label: 'Paragraph',
       value: 'paragraph'
+    }, {
+      label: 'ul',
+      value: 'ul'
     }],
     onChange: value => {
       setAttributes({
