@@ -39,6 +39,12 @@ import RJLoremUL from './components/RJLoremUL';
 
 export default function Edit({ attributes, setAttributes }) {
 	const { loremElement, loremVal, loremNumberOfParagraphsAttr, loremAvgWordsPerSentenceAttr, loremAvgSentencesPerParagraphAttr } = attributes;
+	const [ getloremNumberOfParagraphsAttr, setloremNumberOfParagraphsAttr ] = useState( loremNumberOfParagraphsAttr );
+	const [ getloremAvgWordsPerSentenceAttr, setloremAvgWordsPerSentenceAttr ] = useState( loremAvgWordsPerSentenceAttr );
+	const [ getloremAvgSentencesPerParagraphAttr, setloremAvgSentencesPerParagraphAttr ] = useState( loremAvgSentencesPerParagraphAttr );
+	const [ getloremElement, setloremElement ] = useState( loremElement );
+
+
 	let displayElement;
 	
 	if ( loremElement === 'h1' ) {
@@ -85,20 +91,33 @@ export default function Edit({ attributes, setAttributes }) {
 	}
 	if ( loremElement === 'ul' ) {
 		if (loremVal !== undefined){
-			displayElement =   <RJLoremUL list={loremVal} />;
+			console.log(loremVal)
+			displayElement = <ul>
+			{loremVal && loremVal.map(text => (
+				 <RichText
+				  { ...useBlockProps() }
+				  tagName="li" // The tag here is the element output and editable in the admin
+				  value={ text }// Any existing content, either from the database or an attribute default
+				  allowedFormats={ [ 'core/bold', 'core/italic'] } // Allow the content to be made bold or italic, but do not allow other formatting options
+				  onChange={ ( content ) => console.log(content) } // Store updated content as a block attribute
+				  placeholder={ 'Lorem Ipsum Paragraph' } // Display this text before any content has been added by the user
+				/>
+			  ))}
+			</ul>;
 		} else {
-			displayElement =   <RJLoremUL list={loremVal}  />;
 		}
 	}
 	function handleClick() {
 		setAttributes( {
+			//loremElement: getloremElement,
 			loremVal: loremIpsum({
-				p: loremNumberOfParagraphsAttr,
-				avgWordsPerSentence: loremAvgWordsPerSentenceAttr,
-				avgSentencesPerParagraph: loremAvgSentencesPerParagraphAttr
+				p: getloremNumberOfParagraphsAttr,
+				avgWordsPerSentence: getloremAvgWordsPerSentenceAttr,
+				avgSentencesPerParagraph: getloremAvgSentencesPerParagraphAttr
 			})
 		} )
 	}
+
 	return (
 		<>
 			<InspectorControls>
@@ -118,6 +137,7 @@ export default function Edit({ attributes, setAttributes }) {
 										] }
 										onChange={ ( value ) => {
 											setAttributes( { loremElement: value } )
+											//setloremElement(value)
 										}}
 										__nextHasNoMarginBottom
 									/>
@@ -130,7 +150,7 @@ export default function Edit({ attributes, setAttributes }) {
 										}
 										value={ loremNumberOfParagraphsAttr }
 										onChange={ (value) =>
-											setAttributes( { loremNumberOfParagraphsAttr: parseInt(value) } )
+											setloremNumberOfParagraphsAttr(parseInt(value))
 										}
 										min={1}
 										max={2}
@@ -144,7 +164,7 @@ export default function Edit({ attributes, setAttributes }) {
 										}
 										value={ loremAvgWordsPerSentenceAttr }
 										onChange={ (value ) =>
-											setAttributes( { loremAvgWordsPerSentenceAttr: parseInt(value) } )
+											setloremAvgWordsPerSentenceAttr(parseInt(value))
 										}
 										min={5}
 										max={12}
@@ -158,7 +178,7 @@ export default function Edit({ attributes, setAttributes }) {
 										}
 										value={ loremAvgSentencesPerParagraphAttr }
 										onChange={ (value ) =>
-											setAttributes( { loremAvgSentencesPerParagraphAttr: parseInt(value) } )
+											setloremAvgSentencesPerParagraphAttr(parseInt(value))
 										}
 										min={1}
 										max={2}

@@ -10,7 +10,7 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ RJLoremUL)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
@@ -20,23 +20,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function RJLoremUL(loremVal) {
-  console.log('ul', loremVal);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
-    className: "text-wrapper"
-  }, loremVal && loremVal.list.map(text => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
-    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)(),
-    tagName: "li" // The tag here is the element output and editable in the admin
-    ,
-    value: text // Any existing content, either from the database or an attribute default
-    ,
-    allowedFormats: ['core/bold', 'core/italic'] // Allow the content to be made bold or italic, but do not allow other formatting options
-    ,
-    onChange: content => console.log(content) // Store updated content as a block attribute
-    ,
-    placeholder: 'Lorem Ipsum Paragraph' // Display this text before any content has been added by the user
-  })));
-}
+const RJLoremUL = loremVal => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
+  className: "text-wrapper"
+}, loremVal && loremVal.list.map(text => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
+  ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)(),
+  tagName: "li" // The tag here is the element output and editable in the admin
+  ,
+  value: text // Any existing content, either from the database or an attribute default
+  ,
+  allowedFormats: ['core/bold', 'core/italic'] // Allow the content to be made bold or italic, but do not allow other formatting options
+  ,
+  onChange: content => console.log(content) // Store updated content as a block attribute
+  ,
+  placeholder: 'Lorem Ipsum Paragraph' // Display this text before any content has been added by the user
+})));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RJLoremUL);
 
 /***/ }),
 
@@ -110,6 +108,10 @@ function Edit({
     loremAvgWordsPerSentenceAttr,
     loremAvgSentencesPerParagraphAttr
   } = attributes;
+  const [getloremNumberOfParagraphsAttr, setloremNumberOfParagraphsAttr] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(loremNumberOfParagraphsAttr);
+  const [getloremAvgWordsPerSentenceAttr, setloremAvgWordsPerSentenceAttr] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(loremAvgWordsPerSentenceAttr);
+  const [getloremAvgSentencesPerParagraphAttr, setloremAvgSentencesPerParagraphAttr] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(loremAvgSentencesPerParagraphAttr);
+  const [getloremElement, setloremElement] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(loremElement);
   let displayElement;
   if (loremElement === 'h1') {
     if (loremVal !== undefined) {
@@ -179,21 +181,28 @@ function Edit({
   }
   if (loremElement === 'ul') {
     if (loremVal !== undefined) {
-      displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_RJLoremUL__WEBPACK_IMPORTED_MODULE_6__["default"], {
-        list: loremVal
-      });
-    } else {
-      displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_RJLoremUL__WEBPACK_IMPORTED_MODULE_6__["default"], {
-        list: loremVal
-      });
-    }
+      console.log(loremVal);
+      displayElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", null, loremVal && loremVal.map(text => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+        ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(),
+        tagName: "li" // The tag here is the element output and editable in the admin
+        ,
+        value: text // Any existing content, either from the database or an attribute default
+        ,
+        allowedFormats: ['core/bold', 'core/italic'] // Allow the content to be made bold or italic, but do not allow other formatting options
+        ,
+        onChange: content => console.log(content) // Store updated content as a block attribute
+        ,
+        placeholder: 'Lorem Ipsum Paragraph' // Display this text before any content has been added by the user
+      })));
+    } else {}
   }
   function handleClick() {
     setAttributes({
+      //loremElement: getloremElement,
       loremVal: (0,react_lorem_ipsum__WEBPACK_IMPORTED_MODULE_5__.loremIpsum)({
-        p: loremNumberOfParagraphsAttr,
-        avgWordsPerSentence: loremAvgWordsPerSentenceAttr,
-        avgSentencesPerParagraph: loremAvgSentencesPerParagraphAttr
+        p: getloremNumberOfParagraphsAttr,
+        avgWordsPerSentence: getloremAvgWordsPerSentenceAttr,
+        avgSentencesPerParagraph: getloremAvgSentencesPerParagraphAttr
       })
     });
   }
@@ -223,30 +232,25 @@ function Edit({
       setAttributes({
         loremElement: value
       });
+      //setloremElement(value)
     },
     __nextHasNoMarginBottom: true
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalNumberControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Number of paragraphs ', 'rj-portfolio-block'),
     value: loremNumberOfParagraphsAttr,
-    onChange: value => setAttributes({
-      loremNumberOfParagraphsAttr: parseInt(value)
-    }),
+    onChange: value => setloremNumberOfParagraphsAttr(parseInt(value)),
     min: 1,
     max: 2
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalNumberControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Average number of words', 'rj-portfolio-block'),
     value: loremAvgWordsPerSentenceAttr,
-    onChange: value => setAttributes({
-      loremAvgWordsPerSentenceAttr: parseInt(value)
-    }),
+    onChange: value => setloremAvgWordsPerSentenceAttr(parseInt(value)),
     min: 5,
     max: 12
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalNumberControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Average number of sentences', 'rj-portfolio-block'),
     value: loremAvgSentencesPerParagraphAttr,
-    onChange: value => setAttributes({
-      loremAvgSentencesPerParagraphAttr: parseInt(value)
-    }),
+    onChange: value => setloremAvgSentencesPerParagraphAttr(parseInt(value)),
     min: 1,
     max: 2
   }))))), displayElement);
